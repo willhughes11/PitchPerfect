@@ -23,6 +23,7 @@ class RecordSoundsViewController: UIViewController, AVAudioRecorderDelegate {
         stopRecordingButton.isEnabled = false
     }
     
+    // MARK: Enable and Disable Buttons Function
     func enableDisableButtons(_ recording: Bool){
         if recording {
             recordingLabel.text = "Recording in Progress"
@@ -34,7 +35,9 @@ class RecordSoundsViewController: UIViewController, AVAudioRecorderDelegate {
             recordingLabel.text = "Tap to Record"
         }
     }
-
+    
+    
+    // MARK: Record audio function
     @IBAction func recordAudio(_ sender: AnyObject) {
         enableDisableButtons(true)
         let dirPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] as String
@@ -50,6 +53,7 @@ class RecordSoundsViewController: UIViewController, AVAudioRecorderDelegate {
         audioRecorder.record()
     }
     
+    // MARK: Stop recording audio function
     @IBAction func stopRecording(_ sender: AnyObject) {
         enableDisableButtons(false)
         audioRecorder.stop()
@@ -57,7 +61,7 @@ class RecordSoundsViewController: UIViewController, AVAudioRecorderDelegate {
         try! audioSession.setActive(false)
     }
     
-    
+    // MARK: Confirm that the audio recording finished recording function
     func audioRecorderDidFinishRecording(_ recorder: AVAudioRecorder, successfully flag: Bool) {
         if flag {
             performSegue(withIdentifier: "stopRecording", sender: audioRecorder.url)
